@@ -1,0 +1,14 @@
+{
+    "ArSysX": true,
+    "ArSys": false,
+    "ArXiv": false,
+    "CollabRe": false,
+    "Course": false,
+    "Office": false,
+    "Timetable": false,
+    "Research.student.idx": true,
+    "Free": false,
+    "Todo": true,
+    "News": true,
+    "Chat": true
+}

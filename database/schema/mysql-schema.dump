@@ -1,0 +1,1800 @@
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+DROP TABLE IF EXISTS `academic_year`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `academic_year` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `academic_year` char(11) DEFAULT NULL,
+  `letter_date` datetime DEFAULT NULL,
+  `semester` varchar(255) DEFAULT NULL,
+  `numbering` int(11) DEFAULT NULL,
+  `start` datetime DEFAULT NULL,
+  `end` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_a` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_defense_approval`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_defense_approval` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `research_id` bigint(20) DEFAULT NULL,
+  `defense_model` int(11) DEFAULT NULL,
+  `approver_id` int(11) DEFAULT NULL,
+  `approver_role` int(11) DEFAULT NULL,
+  `decision` int(11) DEFAULT NULL,
+  `approval_date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_defense_examiner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_defense_examiner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `applicant_id` int(11) DEFAULT NULL,
+  `examiner_id` int(11) DEFAULT NULL,
+  `addition` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_defense_examiner_presence`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_defense_examiner_presence` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `applicant_id` int(11) DEFAULT NULL,
+  `examiner_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_defense_examiner_score`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_defense_examiner_score` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `applicant_id` int(11) DEFAULT NULL,
+  `examiner_id` int(11) DEFAULT NULL,
+  `defense_note` text DEFAULT NULL,
+  `mark` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `role` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_defense_model`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_defense_model` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(10) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_defense_report`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_defense_report` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `applicant_id` int(11) DEFAULT NULL,
+  `defense_resume` text DEFAULT NULL,
+  `defense_date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_defense_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_defense_role` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` char(3) DEFAULT NULL,
+  `description` varchar(25) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_defense_score_guide`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_defense_score_guide` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) DEFAULT NULL,
+  `value` varchar(20) DEFAULT NULL,
+  `description` varchar(30) DEFAULT NULL,
+  `sequence` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_document_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_document_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` char(10) DEFAULT NULL,
+  `description` varchar(40) DEFAULT NULL,
+  `ina_description` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `event_id` char(12) DEFAULT NULL,
+  `event_code` varchar(20) DEFAULT NULL,
+  `event_type` int(11) DEFAULT NULL,
+  `application_deadline` datetime DEFAULT NULL,
+  `event_date` datetime DEFAULT NULL,
+  `draft_deadline` datetime DEFAULT NULL,
+  `quota` int(11) DEFAULT NULL,
+  `current` int(11) DEFAULT NULL,
+  `creator` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_applicant`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_applicant` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `room_id` int(11) DEFAULT NULL,
+  `research_id` bigint(20) DEFAULT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  `event_type` int(11) DEFAULT NULL,
+  `session_id` int(11) DEFAULT NULL,
+  `space_id` int(11) DEFAULT NULL,
+  `hold` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `mark_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_applicant_mark_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_applicant_mark_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` char(10) DEFAULT NULL,
+  `sign` varchar(40) DEFAULT NULL,
+  `description` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_applicant_waiting`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_applicant_waiting` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `room_id` int(11) DEFAULT NULL,
+  `research_id` bigint(20) DEFAULT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  `event_type` int(11) DEFAULT NULL,
+  `session_id` int(11) DEFAULT NULL,
+  `space_id` int(11) DEFAULT NULL,
+  `hold` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_assignment_letter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_assignment_letter` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `filename` char(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_letter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_letter` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_letter_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_letter_detail` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `letter_id` int(11) DEFAULT NULL,
+  `room_id` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_letter_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_letter_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` char(10) DEFAULT NULL,
+  `description` varchar(40) DEFAULT NULL,
+  `ina_description` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_session` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `time` char(11) DEFAULT NULL,
+  `type` varchar(10) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_space`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_space` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(25) DEFAULT NULL,
+  `space` char(50) DEFAULT NULL,
+  `passcode` char(50) DEFAULT NULL,
+  `host_key` varchar(20) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_event_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_event_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_type` char(20) DEFAULT NULL,
+  `defense_model` varchar(20) DEFAULT NULL,
+  `abbrev` char(3) DEFAULT NULL,
+  `description` varchar(40) DEFAULT NULL,
+  `ina_description` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_faculty`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_faculty` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `sso_username` varchar(20) DEFAULT NULL,
+  `code` char(3) DEFAULT NULL,
+  `upi_code` char(4) DEFAULT NULL,
+  `nip` char(20) DEFAULT NULL,
+  `old_nip` char(20) DEFAULT NULL,
+  `front_title` varchar(15) DEFAULT NULL,
+  `rear_title` varchar(20) DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(20) DEFAULT NULL,
+  `duty_id` int(11) DEFAULT NULL,
+  `specialization_id` int(11) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `phone` varchar(12) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_faculty_duty`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_faculty_duty` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `faculty_id` int(11) DEFAULT NULL,
+  `duty_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_faculty_duty_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_faculty_duty_type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` char(3) DEFAULT NULL,
+  `display_name` varchar(15) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `academic_year_id` int(2) DEFAULT NULL,
+  `research_type` int(11) DEFAULT NULL,
+  `student_id` bigint(20) DEFAULT NULL,
+  `research_code` char(15) DEFAULT NULL,
+  `title` text DEFAULT NULL,
+  `abstract` text DEFAULT NULL,
+  `research_milestone` bigint(20) DEFAULT NULL,
+  `status` bigint(20) DEFAULT NULL,
+  `approval_date` timestamp NULL DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `file` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `research_id` varchar(20) DEFAULT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_decision_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_decision_type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` char(4) DEFAULT NULL,
+  `description` varchar(15) DEFAULT NULL,
+  `color` varchar(10) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_file` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `file_type` int(11) DEFAULT NULL,
+  `filename` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_file_supervisor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_file_supervisor` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `file_id` int(11) DEFAULT NULL,
+  `supervisor_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_file_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_file_type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` char(12) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_letter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_letter` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_letter_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_letter_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` char(10) DEFAULT NULL,
+  `description` varchar(40) DEFAULT NULL,
+  `ina_description` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `research_id` int(10) DEFAULT NULL,
+  `log_type` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_a` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_log_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_log_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` char(5) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_a` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_milestone`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_milestone` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `milestone` varchar(20) DEFAULT NULL,
+  `milestone_model` varchar(20) DEFAULT NULL,
+  `propose_button` tinyint(1) DEFAULT NULL,
+  `phase` varchar(50) DEFAULT NULL,
+  `sequence` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_milestone_seminar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_milestone_seminar` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `milestone` varchar(20) DEFAULT NULL,
+  `milestone_model` varchar(20) DEFAULT NULL,
+  `propose_button` tinyint(1) DEFAULT NULL,
+  `phase` varchar(50) DEFAULT NULL,
+  `sequence` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `description_pi` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_milestone_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_milestone_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(10) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_model`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_model` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(10) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_review` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `research_id` bigint(20) DEFAULT NULL,
+  `reviewer_id` int(11) DEFAULT NULL,
+  `decision_id` int(11) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `approval_date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_review_activity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_review_activity` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` char(3) DEFAULT NULL,
+  `description` varchar(30) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_review_decision_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_review_decision_type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` char(4) DEFAULT NULL,
+  `description` varchar(15) DEFAULT NULL,
+  `color` varchar(10) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_review_discussion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_review_discussion` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `discussant_id` int(11) DEFAULT NULL,
+  `discussant_type` int(11) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_review_discussion_read`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_review_discussion_read` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `reader_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_review_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_review_file` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `review_id` int(11) DEFAULT NULL,
+  `filename` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_review_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_review_history` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `research_id` varchar(20) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `activity_id` int(15) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_rich_text`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_rich_text` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `title` text DEFAULT NULL,
+  `abstract` text DEFAULT NULL,
+  `aim` text DEFAULT NULL,
+  `background` text DEFAULT NULL,
+  `originality` text DEFAULT NULL,
+  `schedule` text DEFAULT NULL,
+  `methode` text DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_sias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_sias` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `event_type` int(11) DEFAULT NULL,
+  `approval` int(1) DEFAULT NULL,
+  `approval_date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_supervise`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_supervise` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `supervisor_id` int(11) DEFAULT NULL,
+  `threader_id` int(11) DEFAULT NULL,
+  `threader_role` int(11) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `topic` varchar(255) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `read` tinyint(1) DEFAULT NULL,
+  `share` tinyint(4) DEFAULT NULL,
+  `approval_date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_supervise_discussion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_supervise_discussion` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `thread_id` int(11) DEFAULT NULL,
+  `discussant_id` int(11) DEFAULT NULL,
+  `discussant_role` int(11) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `read` tinyint(1) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_supervisor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_supervisor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `supervisor_id` int(11) DEFAULT NULL,
+  `bypass` tinyint(1) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_supervisor_dummy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_supervisor_dummy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `supervisor_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_supervisor_external`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_supervisor_external` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `supervisor_name` varchar(50) DEFAULT NULL,
+  `institution` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_supervisor_external_dummy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_supervisor_external_dummy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `supervisor_name` varchar(50) DEFAULT NULL,
+  `institution` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_supervisor_score`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_supervisor_score` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `applicant_id` int(11) DEFAULT NULL,
+  `supervisor_id` int(11) DEFAULT NULL,
+  `defense_note` text DEFAULT NULL,
+  `mark` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_supervisor_temp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_supervisor_temp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `supervisor_id` int(11) DEFAULT NULL,
+  `file` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_todo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_todo` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `todo_title` varchar(255) DEFAULT NULL,
+  `todo_duedate` datetime DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `creator_type` int(11) DEFAULT NULL,
+  `todo_notes` text DEFAULT NULL,
+  `document_url` varchar(255) DEFAULT NULL,
+  `document_file` varchar(100) DEFAULT NULL,
+  `completed` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_todo_discussion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_todo_discussion` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `todo_id` int(11) DEFAULT NULL,
+  `todo_discussion_notes` text DEFAULT NULL,
+  `discussant_id` int(11) DEFAULT NULL,
+  `discussant_type` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_todo_discussion_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_todo_discussion_file` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `todo_discussion_id` int(11) DEFAULT NULL,
+  `todo_discussion_file` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_todo_discussion_url`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_todo_discussion_url` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `todo_discussion_id` int(11) DEFAULT NULL,
+  `todo_discussion_url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_turnitin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_turnitin` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `research_id` int(11) DEFAULT NULL,
+  `event_type` int(11) DEFAULT NULL,
+  `approval` int(1) DEFAULT NULL,
+  `score` int(5) DEFAULT NULL,
+  `approval_date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_research_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_research_type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` char(3) DEFAULT NULL,
+  `research_model` varchar(20) DEFAULT NULL,
+  `description` varchar(30) DEFAULT NULL,
+  `supervisor_number` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_seminar_examiner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_seminar_examiner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `room_id` int(11) DEFAULT NULL,
+  `examiner_id` int(11) DEFAULT NULL,
+  `addition` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_seminar_examiner_presence`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_seminar_examiner_presence` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `room_id` int(11) DEFAULT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  `examiner_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_seminar_examiner_score`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_seminar_examiner_score` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `applicant_id` int(11) DEFAULT NULL,
+  `examiner_id` int(11) DEFAULT NULL,
+  `seminar_note` text DEFAULT NULL,
+  `mark` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_seminar_milestone`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_seminar_milestone` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `milestone` varchar(20) DEFAULT NULL,
+  `propose_button` tinyint(1) DEFAULT NULL,
+  `phase` varchar(30) DEFAULT NULL,
+  `sequence` int(11) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_seminar_room`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_seminar_room` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) DEFAULT NULL,
+  `room_code` varchar(10) DEFAULT NULL,
+  `space_id` int(11) DEFAULT NULL,
+  `session_id` int(11) DEFAULT NULL,
+  `moderator_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_seminar_room_moderator`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_seminar_room_moderator` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `room_id` int(11) DEFAULT NULL,
+  `moderator_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_student` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `program_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `student_number` char(10) DEFAULT NULL,
+  `code` varchar(10) DEFAULT NULL,
+  `specialization_id` int(11) DEFAULT NULL,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `supervisor_id` int(11) DEFAULT NULL,
+  `GPA` char(4) DEFAULT NULL,
+  `status` char(15) DEFAULT NULL,
+  `phone` char(15) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_study_program`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_study_program` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(5) DEFAULT NULL,
+  `abbrev` varchar(5) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `description_eng` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `arsys_study_specialization`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arsys_study_specialization` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(5) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collabre`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `collabre` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `founder_id` int(11) DEFAULT NULL,
+  `collabre_type` int(11) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collabre_member`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `collabre_member` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `collabre_id` varchar(50) DEFAULT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collabre_todo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `collabre_todo` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `list_id` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `duedate` datetime DEFAULT NULL,
+  `endDate` datetime DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `creator_type` int(11) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `document_url` varchar(255) DEFAULT NULL,
+  `document_file` varchar(100) DEFAULT NULL,
+  `completed` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collabre_todo_discussion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `collabre_todo_discussion` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `todo_id` varchar(255) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collabre_todo_discussion_response`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `collabre_todo_discussion_response` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `discussion_id` varchar(255) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `response` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collabre_todo_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `collabre_todo_list` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `collabre_id` int(11) DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `creator_role` int(1) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `archived` tinyint(4) DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collabre_todo_notification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `collabre_todo_notification` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `todo_id` varchar(255) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `note` text DEFAULT NULL,
+  `status` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collabre_todo_team`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `collabre_todo_team` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `todo_id` varchar(255) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `failed_jobs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `oauth_access_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oauth_access_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `client_id` bigint(20) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `oauth_access_tokens_user_id_index` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `oauth_auth_codes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oauth_auth_codes` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `client_id` bigint(20) unsigned NOT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `oauth_auth_codes_user_id_index` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `oauth_clients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oauth_clients` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `personal_access_client` tinyint(1) NOT NULL,
+  `password_client` tinyint(1) NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `oauth_clients_user_id_index` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `oauth_personal_access_clients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oauth_personal_access_clients` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `client_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `oauth_refresh_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oauth_refresh_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `office_letter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `office_letter` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `to` varchar(50) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `subyek` varchar(100) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `office_letter_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `office_letter_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` char(10) DEFAULT NULL,
+  `description` varchar(40) DEFAULT NULL,
+  `ina_description` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `password_resets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `permission_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permission_role` (
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `role_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`role_id`) USING BTREE,
+  KEY `permission_role_role_id_foreign` (`role_id`) USING BTREE,
+  CONSTRAINT `permission_role_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `permission_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `permission_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permission_user` (
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `team_id` bigint(20) unsigned DEFAULT NULL,
+  UNIQUE KEY `permission_user_user_id_permission_id_user_type_team_id_unique` (`user_id`,`permission_id`,`user_type`,`team_id`) USING BTREE,
+  KEY `permission_user_permission_id_foreign` (`permission_id`) USING BTREE,
+  KEY `permission_user_team_id_foreign` (`team_id`) USING BTREE,
+  CONSTRAINT `permission_user_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `permission_user_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permissions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `permissions_name_unique` (`name`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `role_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `role_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `team_id` bigint(20) unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `role_user_user_id_role_id_user_type_team_id_unique` (`user_id`,`role_id`,`user_type`,`team_id`) USING BTREE,
+  KEY `role_user_role_id_foreign` (`role_id`) USING BTREE,
+  KEY `role_user_team_id_foreign` (`team_id`) USING BTREE,
+  CONSTRAINT `role_user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `role_user_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `roles_name_unique` (`name`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `teams`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `teams` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `teams_name_unique` (`name`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_academic_semester`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_academic_semester` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(10) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_academic_year`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_academic_year` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `academic_year` char(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_a` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_class`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_class` (
+  `id` int(11) NOT NULL,
+  `class` varchar(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_faculty`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_faculty` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `duty_id` int(11) DEFAULT NULL,
+  `sso_username` varchar(20) DEFAULT NULL,
+  `code` char(3) DEFAULT NULL,
+  `upi_code` char(4) DEFAULT NULL,
+  `nip` char(20) DEFAULT NULL,
+  `old_nip` char(20) DEFAULT NULL,
+  `front_title` varchar(15) DEFAULT NULL,
+  `rear_title` varchar(20) DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(20) DEFAULT NULL,
+  `specialization_id` int(11) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `phone` varchar(12) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_fet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_fet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` char(2) DEFAULT NULL,
+  `component` varchar(50) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_fet_teacher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_fet_teacher` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `teacher_id` int(11) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_lectures`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_lectures` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject_code` char(10) DEFAULT NULL,
+  `subject_name` varchar(100) DEFAULT NULL,
+  `class` varchar(50) DEFAULT NULL,
+  `university` varchar(20) DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_lectures_meeting`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_lectures_meeting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `meeting_date` date DEFAULT NULL,
+  `lecture_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_lectures_presence`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_lectures_presence` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `meeting_id` int(11) DEFAULT NULL,
+  `lecture_id` int(11) DEFAULT NULL,
+  `presence_time` char(15) DEFAULT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_lectures_student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_lectures_student` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lecture_id` int(11) DEFAULT NULL,
+  `student_number` char(20) DEFAULT NULL,
+  `student_name` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_lectures_teacher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_lectures_teacher` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lecture_id` int(11) DEFAULT NULL,
+  `faculty_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_program`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_program` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(5) DEFAULT NULL,
+  `abbrev` varchar(5) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `description_eng` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_room`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_room` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `building_id` int(11) DEFAULT NULL,
+  `code` char(35) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `building_type` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_room_building`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_room_building` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` char(10) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_schedule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `activity_id` int(1) DEFAULT NULL,
+  `year_id` int(11) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `subject_id` int(11) DEFAULT NULL,
+  `room_id` int(11) DEFAULT NULL,
+  `daytime` datetime DEFAULT NULL,
+  `siak_status` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_schedule_activity_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_schedule_activity_tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `schedule_id` int(11) DEFAULT NULL,
+  `tag_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_schedule_assignment_letter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_schedule_assignment_letter` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `program_id` int(11) DEFAULT NULL,
+  `year_id` int(2) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_schedule_student_sets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_schedule_student_sets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `schedule_id` int(11) DEFAULT NULL,
+  `year_id` int(2) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_schedule_teaching_team`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_schedule_teaching_team` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `schedule_id` int(11) DEFAULT NULL,
+  `year_id` int(2) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `faculty_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_schedule_year`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_schedule_year` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `year` varchar(10) DEFAULT NULL,
+  `semester` char(6) DEFAULT NULL,
+  `numbering` char(1) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `letter_date` datetime DEFAULT NULL,
+  `description` char(25) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_specialization`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_specialization` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(5) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_student` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(10) DEFAULT NULL,
+  `grade` int(11) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_subject`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_subject` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` char(5) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `credit` char(1) DEFAULT NULL,
+  `semester` char(1) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `specialization_id` int(11) DEFAULT NULL,
+  `year_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_subject_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_subject_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(3) DEFAULT NULL,
+  `description` char(25) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_subject_year`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_subject_year` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `year` varchar(4) DEFAULT NULL,
+  `description` char(25) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_tags`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_tags` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` char(5) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_teaching_class`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_teaching_class` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` int(11) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `program_id` int(11) DEFAULT NULL,
+  `specialization_id` int(11) DEFAULT NULL,
+  `admission` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `timetable_teaching_semester`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetable_teaching_semester` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `schedule_id` int(11) DEFAULT NULL,
+  `faculty_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `trix_attachments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trix_attachments` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attachable_id` int(10) unsigned DEFAULT NULL,
+  `attachable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attachment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `disk` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_pending` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `trix_rich_texts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trix_rich_texts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `field` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `trix_rich_texts_model_type_model_id_index` (`model_type`,`model_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sso_username` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `users_email_unique` (`email`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1);
+INSERT INTO `migrations` VALUES (2,'2014_10_12_100000_create_password_resets_table',1);
+INSERT INTO `migrations` VALUES (3,'2019_08_19_000000_create_failed_jobs_table',1);
+INSERT INTO `migrations` VALUES (4,'2020_11_24_031801_laratrust_setup_tables',1);
