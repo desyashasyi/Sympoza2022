@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('chat')->group(function() {
-    Route::get('/', 'ChatController@index')->name('chat');
+Route::prefix('campfire')->group(function() {
+    Route::get('/', 'CampfireController@index');
 });

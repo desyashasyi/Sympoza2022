@@ -5,14 +5,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <b>News</b> | All about news management
+                    <b>Landing Page</b> 
                 </div>
-                
-                    
-                
-                
                 <div class="card-body" wire:ignore.self>
-                    @livewire('news::selector')
+                   
                 </div>
             </div>
         </div>

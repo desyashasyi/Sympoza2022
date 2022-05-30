@@ -12,5 +12,5 @@
 */
 
 Route::prefix('todo')->group(function() {
-    Route::get('/', 'TodoController@index');
+    Route::get('/', 'TodoController@index')->name('todo');
 });

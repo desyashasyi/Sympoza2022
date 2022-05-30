@@ -1,0 +1,13 @@
+{
+    "name": "Campfire",
+    "alias": "campfire",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Campfire\\Providers\\CampfireServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

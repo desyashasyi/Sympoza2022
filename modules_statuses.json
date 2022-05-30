@@ -10,5 +10,6 @@
     "Free": false,
     "Todo": true,
     "News": true,
-    "Chat": true
+    "Chat": true,
+    "Campfire": true
 }

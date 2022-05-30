@@ -30,6 +30,10 @@ Route::get('/news', function () {
     return redirect('/news');
 });
 
+Route::get('/', function () {
+    return view('index');
+});
+
 
 Auth::routes();
 

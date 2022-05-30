@@ -189,8 +189,8 @@ return [
     */
 
     'use_route_url' => true,
-    'dashboard_url' => 'arsys',
-    'logout_url' => 'arsys.logout',
+    'dashboard_url' => '',
+    'logout_url' => '',
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
@@ -229,15 +229,15 @@ return [
     'menu' => [
         [ 'text' =>'Todo',
           'route' => 'todo',
-          'icon'  => 'far fa-fw fa-paper-plane',
+          'icon'  => 'far fa-fw ',
         ],
         [ 'text' =>'News',
           'route' => 'news',
-          'icon'  => 'far fa-fw fa-paper-plane',
+          'icon'  => 'far fa-fw ',
         ],
         [ 'text' =>'Chat',
           'route' => 'chat',
-          'icon'  => 'far fa-fw fa-paper-plane',
+          'icon'  => 'far fa-fw ',
         ],
     ],
 
