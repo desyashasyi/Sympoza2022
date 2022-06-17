@@ -5,10 +5,27 @@
         </div>
     </div>
     <hr>
-        Tampilkan news title
+       Tampilkan news title
     <hr>
     @if($menu == 'addNews')
         @livewire('news::create')
+        <div>
     @else
     @endif
 </div>
+</div>
+    @if($menu == 'addNews')
+        @livewire('news::text')
+        <div>
+    @else
+    @endif
+</div>
+</div>
+    @if($menu == 'addNews')
+        @livewire('news::title3')
+        <div>
+    @else
+    @endif
+</div>
+
+
