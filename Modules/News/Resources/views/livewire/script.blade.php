@@ -1,3 +1,6 @@
+<body>
+    <img src="https://bestlist.id/wp-content/uploads/2021/01/minyak-goreng-curah-vs-kemasan-bermerek.jpg">
+</body>
 <div>
     <h4>REPUBLIKA.CO.ID, JAKARTA -- Menteri Koordinator Bidang Kemaritiman dan Investasi Luhut Binsar Pandjaitan menjamin pasokan dan harga minyak goreng di pasaran dengan penyempurnaan kebijakan Domestic Market Obligation (DMO) dan Domestic Price Obligation (DPO).<h4>
 <div>

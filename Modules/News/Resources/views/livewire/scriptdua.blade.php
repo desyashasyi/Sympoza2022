@@ -1,3 +1,6 @@
+<body>
+    <img src="https://tfamanasek.com/wp-content/uploads/2020/02/aplikasi-umroh-2.jpg">
+</body>
 <div>
     <h3>Lamongan - Seorang calon jemaah haji asal Lamongan harus menunggu untuk diberangkatkan ke tanah suci. Ia masih terkendala visa.
         Ia terkendala visa karena usianya mendekati batas akhir 65 tahun. Sehingga masih terblokir sistem aplikasi. Kantor Kementerian Agama 

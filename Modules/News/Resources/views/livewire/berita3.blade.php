@@ -1,3 +1,6 @@
+<body>
+    <img src="https://th.bing.com/th/id/OIP.AKhQuGCyTAfmv2KY7N79MwHaD4?w=282&h=180&c=7&r=0&o=5&dpr=1.38&pid=1.7">
+</body>
 <div>
     <h3>TEMPO.CO, Jakarta - Rifky Bujana, siswa yang baru saja lulus dari SMAN 28 Jakarta, berhasil lolos sebagai penerima 
         Beasiswa Indonesia Maju (BIM) di University of British Columbia--universitas tiga terbaik di Kanada dan menyatakan 
