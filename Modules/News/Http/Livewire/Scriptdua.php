@@ -4,16 +4,16 @@ namespace Modules\News\Http\Livewire;
 
 use Livewire\Component;
 
-class Selector extends Component
+class Scriptdua extends Component
 {
     public $menu = false;
     public function render()
     {
-        return view('news::livewire.selector');
+        return view('news::livewire.scriptdua');
     }
 
-    
     public function menuSelection($menu){
         $this->menu = $menu;
     }
 }
+
