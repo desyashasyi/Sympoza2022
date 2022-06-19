@@ -9,6 +9,12 @@
                 </div>
                 <div class="card-body" wire:ignore.self>
                     @livewire('chat::selector')
+                    <hr>
+                    Tampilkan thread title
+                    <hr>
+                    @foreach($list as $item)
+                        <p><a href="/chat/{{ $item->NamaPenerima }}">{{$item->NamaPenerima}}</a></p>
+                    @endforeach
                 </div>
             </div>
         </div>

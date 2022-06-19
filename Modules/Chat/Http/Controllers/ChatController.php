@@ -5,6 +5,7 @@ namespace Modules\Chat\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
@@ -14,7 +15,19 @@ class ChatController extends Controller
      */
     public function index()
     {
-        return view('chat::index');
+        $data = array(
+            'list'=>DB::table('ChatIsi')->select('NamaPenerima')->distinct()->get()
+        );
+        return view('chat::index', $data);
+    }
+
+    public function post($NamaPenerima)
+    {
+        $data = array(
+            'users'=>DB::table('ChatIsi')->where('NamaPenerima', '=', $NamaPenerima)->get(),
+            'users2'=>DB::table('ChatIsi')->where('NamaPenerima', '=', $NamaPenerima)->select('NamaPenerima')->distinct()->get()
+        );
+        return view('chat::post', $data);
     }
 
     /**
@@ -31,9 +44,19 @@ class ChatController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function isi_pesan(Request $request)
     {
-        //
+        $request->validate([
+            'NamaPenerima'=>'required',
+            'IsiPsn'=>'required'
+        ]);
+
+        $query = DB::table('ChatIsi')->insert([
+            'NamaPenerima'=>$request->input('NamaPenerima'),
+            'IsiPsn'=>$request->input('IsiPsn')
+        ]);
+        
+        return redirect('/chat');
     }
 
     /**

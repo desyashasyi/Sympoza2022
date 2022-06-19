@@ -13,4 +13,6 @@
 
 Route::prefix('chat')->group(function() {
     Route::get('/', 'ChatController@index')->name('chat');
+    Route::post('isi_pesan', [Modules\Chat\Http\Controllers\ChatController::class, 'isi_pesan']);
+    Route::get('{NamaPenerima}', [Modules\Chat\Http\Controllers\ChatController::class, 'post'])->name('{NamaPenerima}');
 });
